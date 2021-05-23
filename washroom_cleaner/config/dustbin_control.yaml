@@ -3,7 +3,7 @@ washroom_cleaner:
     type: joint_state_controller/JointStateController
     publish_rate: 50
 
-  claw_controller:
+  dustbin_controller:
     type: effort_controllers/JointPositionController
-    joint: joint_2
+    joint: dustbin_joint
     pid: {p: 100.0, i: 0.01, d: 10.0}

@@ -1,6 +1,16 @@
 <?xml version="1.0"?>
 
 <launch>
+  <rosparam file="$(find washroom_cleaner)/config/dustbin_control.yaml" command="load"/>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/washroom_cleaner" args="dustbin_controller joint_state_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/washroom_cleaner/joint_states" />
+  </node>
+
   <arg name="name" default="bot"/>
   <arg name="model" default="$(find washroom_cleaner)/urdf/bot.urdf.xacro"/>
   <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
